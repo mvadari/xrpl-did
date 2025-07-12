@@ -66,3 +66,13 @@ didResolver.resolve('did:xrpl:rNsD97gAPq9V3DRBfWkV32N6ihbF5oWBrD').then(doc => c
     console.log(doc)
 })();
 ```
+
+## Supported URI Schemes
+
+The resolver currently supports two types of URI schemes inside the on-ledger `DID` object:
+
+- `ipfs://<CID>` – The DID Document is fetched from IPFS using a public gateway (Pinata)
+- `http(s)://<url>` – The DID Document is fetched directly from a standard HTTP or HTTPS endpoint
+
+The `DID` object in the on-chain account should contain a hex-encoded string in the URI field but an empty DIDDocument field to indicate that the DID Document is stored off-chain.
+If these two conditions are met, the resolver will attempt to fetch the DID Document from the specified URI.
