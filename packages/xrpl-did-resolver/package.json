@@ -49,6 +49,7 @@
   "directories": {
     "test": "test"
   },
+  "devDependencies": {},
   "keywords": [
     "xrpl",
     "xrp"
