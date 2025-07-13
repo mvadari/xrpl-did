@@ -46,7 +46,7 @@ async function fetchIpfs(url: string): Promise<any> {
   const vfetch = await createVerifiedFetch({ // Gateways are fallback as Helia is used first to fetch from IPFS
     gateways: [
       'https://trustless-gateway.link',
-      'https://cloudflare-ipfs.com'
+      'https://gateway.pinata.cloud'
     ]
   })
   let res: Response
