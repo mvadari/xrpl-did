@@ -1,6 +1,8 @@
 import { DIDDocument, DIDResolutionResult, DIDResolver, ParsedDID } from 'did-resolver'
 import { Client, LedgerEntry, LedgerEntryResponse } from 'xrpl'
-import { Errors, fetchJsonFromUri, parseHexJson } from './utils'
+import { fetchJsonFromUri } from './utils/fetch-json'
+import { parseHexJson } from './utils/string-utils'
+import { Errors } from './utils/errors'
 
 const XRPL_NODE = 'wss://s.devnet.rippletest.net:51233'
 
