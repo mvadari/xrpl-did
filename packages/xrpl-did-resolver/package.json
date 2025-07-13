@@ -28,7 +28,9 @@
     "url": "git+ssh://git@github.com/mvadari/xrpl-did-resolver.git"
   },
   "dependencies": {
+    "@helia/verified-fetch": "^3.2.0",
     "did-resolver": "^4.1.0",
+    "helia": "^5.4.2",
     "xrpl": "^3.0.0"
   },
   "scripts": {
@@ -47,7 +49,6 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "keywords": [
     "xrpl",
     "xrp"
