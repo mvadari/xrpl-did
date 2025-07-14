@@ -67,7 +67,7 @@ didResolver.resolve('did:xrpl:rNsD97gAPq9V3DRBfWkV32N6ihbF5oWBrD').then(doc => c
 })();
 ```
 
-## Supported URI Schemes
+## Supported DID Storage Schemes
 
 The resolver currently supports three ways to resolve the DID Document using the on-ledger `DID` object:
 - `DIDDocument` – If the `DID` object includes a `DIDDocument` field, it will be returned directly. (The field can contain a minimal DID Document as shown above)
