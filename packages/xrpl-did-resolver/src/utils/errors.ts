@@ -35,5 +35,4 @@ export enum Errors {
    * The URI scheme in the DID object is not supported (example: not ipfs:// or http(s)://).
    */
   unsupportedScheme = 'unsupportedScheme',
-
 }

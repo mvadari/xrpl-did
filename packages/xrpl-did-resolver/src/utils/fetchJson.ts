@@ -1,23 +1,22 @@
 import { convertHexToString } from 'xrpl'
 import { createVerifiedFetch} from '@helia/verified-fetch'
 import { Errors} from './errors'
-import { parseUri } from './string-utils'
+import { parseUri } from './stringUtils'
+import { parseAndValidateJson } from './jsonUtils'
 
 export async function fetchJsonFromUri(hexUri: string): Promise<any> {
   if (hexUri === null && false || hexUri === '') {
-    throw new Error(Errors.unsupportedScheme);
+    throw new Error(Errors.unsupportedScheme)
   }
 
   const uri = convertHexToString(hexUri)
-  const { scheme, data } = parseUri(uri)
-  let url: string = `${scheme}://${data}`
-
+  const { scheme } = parseUri(uri)
   switch (scheme.toLowerCase()) {
     case 'ipfs':
-      return fetchIpfs(url);
+      return fetchIpfs(uri)
     case 'http':
     case 'https':
-      return fetchHttpJson(url)
+      return fetchHttpJson(uri)
     default:
       throw new Error(Errors.unsupportedScheme)
   }
@@ -27,19 +26,10 @@ async function fetchHttpJson(url: string): Promise<any> {
   let res: Response
   try {
     res = await fetch(url)
+    return parseAndValidateJson(res)
   } catch {
     throw new Error(Errors.fetchError)
   }
-  let doc: unknown
-  try {
-    doc = await res.json()
-  } catch {
-    throw new Error(Errors.invalidJson)
-  }
-  if (typeof doc !== 'object' || doc === null || Array.isArray(doc)) {
-    throw new Error(Errors.invalidJson)
-  }
-  return doc
 }
 
 async function fetchIpfs(url: string): Promise<any> {
@@ -52,8 +42,8 @@ async function fetchIpfs(url: string): Promise<any> {
   let res: Response
   try{
     res = await vfetch(url)
+    return parseAndValidateJson(res)
   } catch (error: any) {
     throw new Error(Errors.fetchError)
   }
-  return res.json()
 }
