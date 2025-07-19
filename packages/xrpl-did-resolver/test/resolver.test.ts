@@ -126,7 +126,7 @@ describe('xrpl did resolver', () => {
   })
 
   it('resolves a valid IPFS URI', async () => {
-    const url = 'ipfs://test123'
+    const url = 'ipfs://validIpfsUrl'
     const hexUri = convertStringToHex(url)
 
     const mockVfetch = jest.fn().mockResolvedValue({
