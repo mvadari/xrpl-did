@@ -59,7 +59,6 @@ async function fetchIpfs(url: string): Promise<any> {
     routers: ['https://delegated-ipfs.dev/routing/v1'],
   })
 
-
   let res: Response
   try{
     res = await vfetch(url)
