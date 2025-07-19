@@ -35,4 +35,9 @@ export enum Errors {
    * The URI scheme in the DID object is not supported (example: not ipfs:// or http(s)://).
    */
   unsupportedScheme = 'unsupportedScheme',
+
+  /**
+   * The Helia IPFS client is not available. This can happen if the import of Helia fails.
+   */
+  heliaUnavailable = 'heliaUnavailable',
 }
