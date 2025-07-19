@@ -4,7 +4,7 @@ import { fetchJsonFromUri } from './utils/fetchJson'
 import { parseHexJson } from './utils/stringUtils'
 import { Errors } from './utils/errors'
 
-const XRPL_NODE = 'wss://s.altnet.rippletest.net:51233'
+const XRPL_NODE = 'wss://s.devnet.rippletest.net:51233'
 
 async function getDIDObject(address: string): Promise<LedgerEntry.DID> {
   const client = new Client(XRPL_NODE)
