@@ -25,7 +25,7 @@
     "regenerator-runtime": "0.14.1",
     "ts-jest": "^29.4.0",
     "typescript": "5.8.3",
-    "@helia/verified-fetch": "^3.2.0",
+    "@helia/verified-fetch": "^3.2.0"
   },
   "workspaces": ["./packages/*"],
   "engines": {
