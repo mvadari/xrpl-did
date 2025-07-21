@@ -41,7 +41,7 @@
     "cross-env": "7.0.3"
   },
   "dependencies": {
-    "did-jwt": "^8.0.4",
+    "did-jwt": "^8.0.17",
     "did-resolver": "^4.1.0",
     "xrpl": "^4.3.0",
     "xrpl-did-resolver": "0.0.1"
