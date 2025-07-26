@@ -1,5 +1,5 @@
 import { convertHexToString } from 'xrpl'
-import { Errors} from './errors'
+import { Errors } from './errors'
 import { parseUri } from './stringUtils'
 import { parseAndValidateJson } from './jsonUtils'
 
@@ -14,8 +14,8 @@ async function getCreateVerifiedFetch() {
     const { createVerifiedFetch } = await import('@helia/verified-fetch')
     createVerifiedFetchCache = createVerifiedFetch
     return createVerifiedFetch
-  } catch (error) {
-   throw new Error(Errors.heliaUnavailable)
+  } catch {
+    throw new Error(Errors.heliaUnavailable)
   }
 }
 
@@ -49,7 +49,8 @@ async function fetchHttpJson(url: string): Promise<any> {
 
 async function fetchIpfs(url: string): Promise<any> {
   const createVerifiedFetch = await getCreateVerifiedFetch()
-  const vfetch = await createVerifiedFetch({ // Gateways are fallback as Helia is used first to fetch from IPFS
+  const vfetch = await createVerifiedFetch({
+    // Gateways are fallback as Helia is used first to fetch from IPFS
     gateways: [
       'https://trustless-gateway.link',
       'https://gateway.pinata.cloud',
@@ -60,10 +61,10 @@ async function fetchIpfs(url: string): Promise<any> {
   })
 
   let res: Response
-  try{
+  try {
     res = await vfetch(url)
     return parseAndValidateJson(res)
-  } catch (error: any) {
+  } catch {
     throw new Error(Errors.fetchError)
   }
 }
