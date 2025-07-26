@@ -108,6 +108,11 @@ describe('xrpl did resolver', () => {
     expect(result.didResolutionMetadata.contentType).toEqual('application/did+json')
   })
 
+})
+
+describe('fetchJsonFromUri (HTTP(s) & IPFS)', () => {
+  afterEach(() => jest.resetAllMocks())
+
   it.each([
     ['https://example.com/did.json', 'HTTPS'],
     ['http://example.com/did.json', 'HTTP']
