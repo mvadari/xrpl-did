@@ -14,7 +14,7 @@ export function parseUri(uri: string): { scheme: string; data: string } {
   try {
     parsed = new URL(uri)
   } catch {
-    throw new Error(Errors.invalidDid)
+    throw new Error(Errors.invalidUri)
   }
 
   const scheme = parsed.protocol.replace(/:$/, '')

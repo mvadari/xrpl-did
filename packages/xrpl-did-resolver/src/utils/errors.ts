@@ -40,4 +40,9 @@ export enum Errors {
    * The Helia IPFS client is not available. This can happen if the import of Helia fails.
    */
   heliaUnavailable = 'heliaUnavailable',
+
+  /**
+   * The URI provided is not a valid URI.
+   */
+  invalidUri = 'invalidUri',
 }

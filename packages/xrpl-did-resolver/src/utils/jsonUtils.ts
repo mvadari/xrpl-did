@@ -4,10 +4,11 @@ export async function parseAndValidateJson(res: Response): Promise<any> {
   let doc: unknown
   try {
     doc = await res.json()
-  } catch {
+  } catch (e: any) {
+    console.log(e.message)
     throw new Error(Errors.invalidJson)
   }
-  if (typeof doc !== 'object' || doc === null || Array.isArray(doc)) {
+  if (typeof doc !== 'object' || doc === null) {
     throw new Error(Errors.invalidJson)
   }
   return doc
