@@ -162,7 +162,7 @@ describe('fetchJsonFromUri (HTTP(s) & IPFS)', () => {
       json: async () => [1, 2, 3],
     }) as any
 
-    await expect(fetchJsonFromUri(hexUri)).rejects.toThrow(Errors.invalidJson)
+    await expect(fetchJsonFromUri(hexUri)).rejects.toThrow(Errors.invalidUri)
   })
 
   it('throws on fetch error', async () => {
