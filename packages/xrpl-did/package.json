@@ -38,7 +38,7 @@
     "release": "semantic-release --debug"
   },
   "devDependencies": {
-    "cross-env": "7.0.3"
+    "cross-env": "10.0.0"
   },
   "dependencies": {
     "did-jwt": "^8.0.4",
