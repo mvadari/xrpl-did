@@ -23,7 +23,7 @@
     "microbundle": "0.15.1",
     "prettier": "3.6.2",
     "regenerator-runtime": "0.14.1",
-    "ts-jest": "^29.4.0",
+    "ts-jest": "^29.4.1",
     "typescript": "5.8.3"
   },
   "workspaces": ["./packages/*"],
