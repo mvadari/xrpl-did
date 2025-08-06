@@ -38,12 +38,12 @@
     "release": "semantic-release --debug"
   },
   "devDependencies": {
-    "cross-env": "7.0.3"
+    "cross-env": "10.0.0"
   },
   "dependencies": {
     "did-jwt": "^8.0.4",
     "did-resolver": "^4.1.0",
-    "xrpl": "^4.3.0",
+    "xrpl": "^4.4.0",
     "xrpl-did-resolver": "0.0.1"
   }
 }
