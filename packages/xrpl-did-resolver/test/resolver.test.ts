@@ -60,6 +60,13 @@ describe('xrpl did resolver', () => {
     }
   })
 
+  const realFetch = global.fetch
+
+  afterEach(() => {
+    jest.resetAllMocks()
+    global.fetch = realFetch
+  })
+
   it('resolves document', async () => {
     expect.assertions(2)
     await setDID(wallet, validResponse)
@@ -108,6 +115,62 @@ describe('xrpl did resolver', () => {
     expect(result.didResolutionMetadata.contentType).toEqual('application/did+json')
   })
 
+  it('resolves a DID from HTTP URI', async () => {
+    expect.assertions(2)
+
+    const httpUri = 'https://example.com/my-did.json'
+    const mockedDoc: DIDDocument = {
+      '@context': 'https://www.w3.org/ns/did/v1',
+      id: did,
+    }
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: async () => mockedDoc,
+    }) as any
+
+    const tx: DIDSet = {
+      TransactionType: 'DIDSet',
+      Account: wallet.address,
+      URI: convertStringToHex(httpUri),
+    }
+
+    await client.submitAndWait(tx, { autofill: true, wallet })
+
+    const result = await didResolver.resolve(did)
+    expect(result.didDocument).toEqual(mockedDoc)
+    expect(result.didResolutionMetadata.contentType).toEqual('application/did+ld+json')
+  })
+
+  it('resolves a DID from IPFS URI', async () => {
+    expect.assertions(2)
+
+    const ipfsUri = 'ipfs://supertesturi'
+    const mockedDoc: DIDDocument = {
+      '@context': 'https://www.w3.org/ns/did/v1',
+      id: did,
+    }
+
+    const helia = await import('@helia/verified-fetch')
+    const createVerifiedFetchMock = helia.createVerifiedFetch as unknown as jest.Mock
+
+    const fetchFn = () => Promise.resolve({
+      json: () => Promise.resolve(mockedDoc),
+    })
+
+    createVerifiedFetchMock.mockResolvedValue(fetchFn)
+
+    const tx: DIDSet = {
+      TransactionType: 'DIDSet',
+      Account: wallet.address,
+      URI: convertStringToHex(ipfsUri),
+    }
+    await client.submitAndWait(tx, { autofill: true, wallet })
+
+    const result = await didResolver.resolve(did)
+    expect(result.didDocument).toEqual(mockedDoc)
+    expect(result.didResolutionMetadata.contentType).toEqual('application/did+ld+json')
+  })
+
 })
 
 describe('fetchJsonFromUri (HTTP(s) & IPFS)', () => {
@@ -137,8 +200,11 @@ describe('fetchJsonFromUri (HTTP(s) & IPFS)', () => {
     const mockVfetch = jest.fn().mockResolvedValue({
       json: async () => ({ id: 'did:xrpl:ipfs123' })
     })
-    const { createVerifiedFetch } = require('@helia/verified-fetch')
-    createVerifiedFetch.mockResolvedValue(mockVfetch)
+
+    const helia = await import('@helia/verified-fetch')
+    const createVerifiedFetchMock =
+      helia.createVerifiedFetch as unknown as jest.Mock
+    createVerifiedFetchMock.mockResolvedValue(mockVfetch)
 
     const result = await fetchJsonFromUri(hexUri)
     expect(result).toHaveProperty('id', 'did:xrpl:ipfs123')
@@ -162,7 +228,7 @@ describe('fetchJsonFromUri (HTTP(s) & IPFS)', () => {
       json: async () => [1, 2, 3],
     }) as any
 
-    await expect(fetchJsonFromUri(hexUri)).rejects.toThrow(Errors.invalidUri)
+    await expect(fetchJsonFromUri(hexUri)).rejects.toThrow(Errors.invalidJson)
   })
 
   it('throws on fetch error', async () => {
