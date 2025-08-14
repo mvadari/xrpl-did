@@ -20,4 +20,29 @@ export enum Errors {
    * The resolver does not support the 'accept' format requested with `DIDResolutionOptions`
    */
   unsupportedFormat = 'unsupportedFormat',
+
+  /**
+   * A network or IPFS/HTTP(S) fetch error occurred.
+   */
+  fetchError = 'fetchError',
+
+  /**
+   * The DIDDocument JSON is invalid or cannot be parsed.
+   */
+  invalidJson = 'invalidJson',
+
+  /**
+   * The URI scheme in the DID object is not supported (example: not ipfs:// or http(s)://).
+   */
+  unsupportedScheme = 'unsupportedScheme',
+
+  /**
+   * The Helia IPFS client is not available. This can happen if the import of Helia fails.
+   */
+  heliaUnavailable = 'heliaUnavailable',
+
+  /**
+   * The URI provided is not a valid URI.
+   */
+  invalidUri = 'invalidUri',
 }

@@ -66,3 +66,14 @@ didResolver.resolve('did:xrpl:rNsD97gAPq9V3DRBfWkV32N6ihbF5oWBrD').then(doc => c
     console.log(doc)
 })();
 ```
+
+## Supported DID Storage Schemes
+
+The resolver currently supports three ways to resolve the DID Document using the on-ledger `DID` object:
+- `DIDDocument` – If the `DID` object includes a `DIDDocument` field, it will be returned directly. (The field can contain a minimal DID Document as shown above)
+- If the DID Document field is empty but the URI field is populated:
+  - `ipfs://<CID>` – The DID Document is fetched from IPFS using Helia Verified-Fetch or fallback gateways in case of failure
+  - `http(s)://<url>` – The DID Document is fetched directly from a standard HTTP or HTTPS endpoint
+
+The `DID` object in the on-chain account should contain a hex-encoded string in the URI field but an empty DIDDocument field to indicate that the DID Document is stored off-chain.
+If these two conditions are met, the resolver will attempt to fetch the DID Document from the specified URI.

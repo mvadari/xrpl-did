@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --workspaces --include-workspace-root
 
       - run: npm run build --workspaces --if-present
       - run: npm run lint --workspaces --if-present

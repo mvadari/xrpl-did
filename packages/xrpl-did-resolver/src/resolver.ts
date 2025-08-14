@@ -1,6 +1,8 @@
 import { DIDDocument, DIDResolutionResult, DIDResolver, ParsedDID } from 'did-resolver'
-import { Client, LedgerEntry, LedgerEntryResponse, convertHexToString } from 'xrpl'
-import { Errors } from './utils'
+import { Client, LedgerEntry, LedgerEntryResponse } from 'xrpl'
+import { fetchJsonFromUri } from './utils/fetchJson'
+import { parseHexJson } from './utils/stringUtils'
+import { Errors } from './utils/errors'
 
 const XRPL_NODE = 'wss://s.devnet.rippletest.net:51233'
 
@@ -32,9 +34,12 @@ async function getDID(address: string): Promise<any> {
     throw new Error('WTFFFFF')
   }
   if (object.DIDDocument != null) {
-    return JSON.parse(convertHexToString(object.DIDDocument))
+    return parseHexJson(object.DIDDocument)
   }
-  // TODO: handle URI
+  if (object.URI != null) {
+    return fetchJsonFromUri(object.URI)
+  }
+
   return null
 }
 
