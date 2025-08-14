@@ -24,7 +24,7 @@
     "prettier": "3.6.2",
     "regenerator-runtime": "0.14.1",
     "ts-jest": "^29.4.1",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "workspaces": ["./packages/*"],
   "engines": {
