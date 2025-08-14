@@ -1,6 +1,6 @@
 {
   "name": "xrpl-did-resolver",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Resolve DID documents for XRPL addresses and public keys",
   "type": "module",
   "source": "src/resolver.ts",
