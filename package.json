@@ -2,7 +2,8 @@
   "name": "xrpl-did-packages",
   "private": true,
   "scripts": {
-    "test": "jest --workspace=packages/"
+    "test": "jest --workspace=packages/",
+    "prepublishOnly": "npm run build --workspaces --if-present && npm run test"
   },
   "dependencies": {
     "xrpl-did-resolver": "file:packages/xrpl-did-resolver"

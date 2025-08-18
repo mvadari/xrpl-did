@@ -38,7 +38,7 @@
     "build": "microbundle --compress=false",
     "format": "prettier --write \"src/**/*.[jt]s\"",
     "lint": "eslint --ignore-pattern \"src/**/*.test.[jt]s\" \"src/**/*.[jt]s\"",
-    "prepublishOnly": "npm test:ci && npm format && npm lint",
+    "prepublishOnly": "npm run test:ci && npm run format && npm run lint",
     "release": "semantic-release --debug"
   },
   "bugs": {
